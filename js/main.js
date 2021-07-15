@@ -1,3 +1,3 @@
-import {generateOffers} from './data.js';
+import {makeOfferCards} from './card.js';
 
-generateOffers();
+makeOfferCards();
