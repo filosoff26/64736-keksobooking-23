@@ -4,4 +4,4 @@ import {deactivatePage, activatePage} from './form.js';
 makeOfferCards();
 deactivatePage();
 
-setTimeout(activatePage, 5000);
+setTimeout(activatePage, 2000);

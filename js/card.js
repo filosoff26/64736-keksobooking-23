@@ -25,9 +25,6 @@ function addElementContent(parent, selector, content) {
 }
 
 function addFeatures(featuresBlock, features) {
-  featuresBlock.querySelectorAll('.popup__feature').forEach((element) => {
-    element.classList.add('hidden');
-  });
   features.forEach((feature) => {
     featuresBlock.querySelector(`.popup__feature--${feature}`).classList.remove('hidden');
   });
