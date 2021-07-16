@@ -20,6 +20,7 @@ const timeInSelect = adForm.querySelector('#timein');
 const timeOutSelect = adForm.querySelector('#timeout');
 const roomNumberSelect = adForm.querySelector('#room_number');
 const capacitySelect = adForm.querySelector('#capacity');
+const addressInput = adForm.querySelector('#address');
 
 const mapFiltersForm =  document.querySelector('.map__filters');
 
@@ -66,4 +67,9 @@ function activatePage() {
   });
 }
 
-export {deactivatePage, activatePage};
+function setFormLatLng(data) {
+  const {lat, lng} = L.latLng(data);
+  addressInput.value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+}
+
+export {deactivatePage, activatePage, setFormLatLng};

@@ -1,5 +1,3 @@
-import {generateAds} from './data.js';
-
 const OFFER_TYPE_TRANSLATIONS = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
@@ -63,9 +61,4 @@ function createOfferCard(ad) {
   return card;
 }
 
-function makeOfferCards() {
-  const ads = generateAds();
-  document.querySelector('#map-canvas').appendChild(createOfferCard(ads[0]));
-}
-
-export {makeOfferCards};
+export {createOfferCard};
