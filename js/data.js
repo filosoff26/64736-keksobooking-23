@@ -7,7 +7,7 @@ const OFFER_TYPES = [
   'bungalow',
   'hotel',
 ];
-const CHECKIN_VARIANTS = [
+const TIME_VARIANTS = [
   '12:00',
   '13:00',
   '14:00',
@@ -27,9 +27,9 @@ const PHOTOS = [
 ];
 
 /*
- * Создание 10 случайных предложений об аренде
+ * Создание 10 случайных объявлений об аренде
  */
-function generateOffers () {
+function generateAds () {
   const offers = [];
 
   for (let offerNumber = 1; offerNumber <= 10; offerNumber++) {
@@ -52,7 +52,8 @@ function generateOffers () {
         type: offerType,
         rooms: offerRooms,
         guests: getRandomInt(1, 9),
-        checkin: getRandomArrayElement(CHECKIN_VARIANTS),
+        checkin: getRandomArrayElement(TIME_VARIANTS),
+        checkout: getRandomArrayElement(TIME_VARIANTS),
         features: getRandomArraySubset(FEATURES_VARIANTS),
         description: `Nice ${offerType} with ${offerRooms} room(s)`,
         photos: getRandomArraySubset(PHOTOS),
@@ -63,4 +64,4 @@ function generateOffers () {
   return offers;
 }
 
-export {generateOffers};
+export {generateAds};
