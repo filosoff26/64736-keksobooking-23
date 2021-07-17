@@ -1,3 +1,5 @@
+import {getClass} from './util.js';
+
 const OFFER_TYPE_TRANSLATIONS = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
@@ -23,6 +25,9 @@ function addElementContent(parent, selector, content) {
 }
 
 function addFeatures(featuresBlock, features) {
+  if (getClass(features) !== 'Array') {
+    return;
+  }
   features.forEach((feature) => {
     featuresBlock.querySelector(`.popup__feature--${feature}`).classList.remove('hidden');
   });
@@ -33,7 +38,6 @@ function addOfferPhotos(photosBlock, photos) {
     photosBlock.classList.add('hidden');
     return;
   }
-
   const photoTemplate = photosBlock.querySelector('.popup__photo');
   photosBlock.removeChild(photoTemplate);
   photos.forEach((photoSrc) => {
