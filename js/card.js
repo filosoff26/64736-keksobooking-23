@@ -1,5 +1,3 @@
-import {generateAds} from './data.js';
-
 const OFFER_TYPE_TRANSLATIONS = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
@@ -25,9 +23,6 @@ function addElementContent(parent, selector, content) {
 }
 
 function addFeatures(featuresBlock, features) {
-  featuresBlock.querySelectorAll('.popup__feature').forEach((element) => {
-    element.classList.add('hidden');
-  });
   features.forEach((feature) => {
     featuresBlock.querySelector(`.popup__feature--${feature}`).classList.remove('hidden');
   });
@@ -66,9 +61,4 @@ function createOfferCard(ad) {
   return card;
 }
 
-function makeOfferCards() {
-  const ads = generateAds();
-  document.querySelector('#map-canvas').appendChild(createOfferCard(ads[0]));
-}
-
-export {makeOfferCards};
+export {createOfferCard};
