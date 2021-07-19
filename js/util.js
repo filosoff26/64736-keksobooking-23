@@ -1,8 +1,15 @@
 /*
+ * Определение класса встроенных объектов или примитивов. Полезно при проверке входных данных
+ */
+function getClass(obj) {
+  return {}.toString.call(obj).slice(8, -1);
+}
+
+/*
  * Функция взята из интернета и доработана
  * Источник - https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_random
  */
-function getRandomInt (min, max) {
+function getRandomInt(min, max) {
   const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
   const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
   const result = Math.random() * (upper - lower + 1) + lower;
@@ -14,7 +21,7 @@ function getRandomInt (min, max) {
  * Функция взята из интернета и доработана
  * Источник - https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_random
  */
-function getRandomFloat (min, max, digits = 1) {
+function getRandomFloat(min, max, digits = 1) {
   const lower = Math.min(Math.abs(min), Math.abs(max));
   const upper = Math.max(Math.abs(min), Math.abs(max));
   const result = Math.random() * (upper - lower) + lower;
@@ -36,4 +43,4 @@ function getRandomArraySubset(array) {
   return array.slice(start, end);
 }
 
-export {getRandomInt, getRandomFloat, getRandomArrayElement, getRandomArraySubset};
+export {getClass, getRandomInt, getRandomFloat, getRandomArrayElement, getRandomArraySubset};
