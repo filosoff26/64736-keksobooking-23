@@ -1,15 +1,12 @@
-import {activatePage, deactivatePage, setFormLatLng} from './form.js';
 import {createOfferCard} from './card.js';
 
 let map;
+let mainPinMarker;
 
-function initMap(location, zoom) {
-  deactivatePage();
-
-  map = L.map('map-canvas')
-    .on('load', activatePage)
-    .setView(location, zoom);
-
+function loadMap(location, zoom, mapLoadHandler) {
+  map = L.map('map-canvas');
+  map.on('load', mapLoadHandler);
+  map.setView(location, zoom);
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     {
@@ -18,13 +15,17 @@ function initMap(location, zoom) {
     .addTo(map);
 }
 
-function addMainPin(location) {
+function setMapState(location, zoom, afterChangeHandler) {
+  map.on('moveend', afterChangeHandler).flyTo(location, zoom);
+}
+
+function addMainPin(location, moveMainPinHandler) {
   const mainPinIcon = L.icon({
     iconUrl: 'img/main-pin.svg',
     iconSize: [52, 52],
     iconAnchor: [26, 52],
   });
-  const mainPinMarker = L.marker(
+  mainPinMarker = L.marker(
     location,
     {
       icon: mainPinIcon,
@@ -32,15 +33,14 @@ function addMainPin(location) {
     },
   );
 
-  mainPinMarker.addTo(map);
-  mainPinMarker.on('moveend', () => {
-    setFormLatLng(mainPinMarker.getLatLng());
-  });
-
-  setFormLatLng(location);
+  mainPinMarker.addTo(map).on('moveend', moveMainPinHandler);
 }
 
-function addPin(ad) {
+function setMainPinLocation(location) {
+  mainPinMarker.setLatLng(location);
+}
+
+function addPin(data) {
   const regularPinIcon = L.icon({
     iconUrl: 'img/pin.svg',
     iconSize: [40, 40],
@@ -48,13 +48,13 @@ function addPin(ad) {
   });
 
   const marker = L.marker(
-    ad.location,
+    data.location,
     {
       regularPinIcon,
     },
   );
 
-  marker.addTo(map).bindPopup(() => createOfferCard(ad));
+  marker.addTo(map).bindPopup(() => createOfferCard(data));
 }
 
-export {initMap, addMainPin, addPin};
+export {loadMap, setMapState, addMainPin, setMainPinLocation, addPin};
