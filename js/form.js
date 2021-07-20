@@ -1,5 +1,7 @@
 import {sendData} from './api.js';
 
+const COORDINATES_PRECISION = 5;
+
 const MINIMAL_PRICES_BY_TYPE = {
   bungalow: 0,
   flat: 1000,
@@ -23,8 +25,6 @@ const roomNumberSelect = adForm.querySelector('#room_number');
 const capacitySelect = adForm.querySelector('#capacity');
 const addressInput = adForm.querySelector('#address');
 
-const mapFiltersForm =  document.querySelector('.map__filters');
-
 function roomNumberChangeHandler() {
   for (const option of capacitySelect.options) {
     const allowedCapacities = CAPACITY_BY_ROOM_NUMBER[roomNumberSelect.value];
@@ -34,13 +34,9 @@ function roomNumberChangeHandler() {
   capacitySelect.value = firstEnabledOption.value;
 }
 
-function deactivatePage() {
+function deactivateForm() {
   adForm.classList.add('ad-form--disabled');
   adForm.querySelectorAll('fieldset').forEach((element) => {
-    element.disabled = true;
-  });
-  mapFiltersForm.classList.add('map__filters--disabled');
-  mapFiltersForm.querySelectorAll('select, fieldset').forEach((element) => {
     element.disabled = true;
   });
 }
@@ -53,24 +49,13 @@ function activateForm() {
   roomNumberChangeHandler();
 }
 
-function activateFilters() {
-  mapFiltersForm.classList.remove('map__filters--disabled');
-  mapFiltersForm.querySelectorAll('select, fieldset').forEach((element) => {
-    element.disabled = false;
-  });
-}
-
 function resetForm() {
   adForm.reset();
 }
 
-function resetFilters() {
-  mapFiltersForm.reset();
-}
-
 function setFormLatLng(data) {
   const {lat, lng} = L.latLng(data);
-  addressInput.value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+  addressInput.value = `${lat.toFixed(COORDINATES_PRECISION)}, ${lng.toFixed(COORDINATES_PRECISION)}`;
 }
 
 function addFormSubmitHandlers(successHandler, errorHandler) {
@@ -101,4 +86,4 @@ timeOutSelect.addEventListener('change', () => {
 roomNumberSelect.addEventListener('change', roomNumberChangeHandler);
 adForm.addEventListener('reset', roomNumberChangeHandler);
 
-export {deactivatePage, activateForm, activateFilters, resetForm, resetFilters, setFormLatLng, addFormSubmitHandlers, addformResetHandler};
+export {deactivateForm, activateForm, resetForm, setFormLatLng, addFormSubmitHandlers, addformResetHandler};

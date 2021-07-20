@@ -1,7 +1,21 @@
 import {createOfferCard} from './card.js';
 
+const MAX_VISIBLE_POINTS = 10;
+
+const mainPinIcon = L.icon({
+  iconUrl: 'img/main-pin.svg',
+  iconSize: [52, 52],
+  iconAnchor: [26, 52],
+});
+const regularPinIcon = L.icon({
+  iconUrl: 'img/pin.svg',
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
+});
+
 let map;
 let mainPinMarker;
+let pinsLayer;
 
 function loadMap(location, zoom, mapLoadHandler) {
   map = L.map('map-canvas');
@@ -13,6 +27,8 @@ function loadMap(location, zoom, mapLoadHandler) {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     })
     .addTo(map);
+  pinsLayer = L.layerGroup();
+  pinsLayer.addTo(map);
 }
 
 function setMapState(location, zoom, afterChangeHandler) {
@@ -20,11 +36,6 @@ function setMapState(location, zoom, afterChangeHandler) {
 }
 
 function addMainPin(location, moveMainPinHandler) {
-  const mainPinIcon = L.icon({
-    iconUrl: 'img/main-pin.svg',
-    iconSize: [52, 52],
-    iconAnchor: [26, 52],
-  });
   mainPinMarker = L.marker(
     location,
     {
@@ -40,21 +51,20 @@ function setMainPinLocation(location) {
   mainPinMarker.setLatLng(location);
 }
 
-function addPin(data) {
-  const regularPinIcon = L.icon({
-    iconUrl: 'img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-  });
-
-  const marker = L.marker(
-    data.location,
-    {
-      regularPinIcon,
-    },
-  );
-
-  marker.addTo(map).bindPopup(() => createOfferCard(data));
+function clearPins() {
+  pinsLayer.clearLayers();
 }
 
-export {loadMap, setMapState, addMainPin, setMainPinLocation, addPin};
+function addPins(data) {
+  for (let i = 0; i < data.length && i < MAX_VISIBLE_POINTS; i++) {
+    const marker = L.marker(
+      data[i].location,
+      {
+        regularPinIcon,
+      },
+    );
+    marker.addTo(pinsLayer).bindPopup(() => createOfferCard(data[i]));
+  }
+}
+
+export {loadMap, setMapState, addMainPin, setMainPinLocation, clearPins, addPins};
