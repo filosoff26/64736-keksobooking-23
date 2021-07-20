@@ -1,6 +1,7 @@
 import {sendData} from './api.js';
 
 const COORDINATES_PRECISION = 5;
+
 const MINIMAL_PRICES_BY_TYPE = {
   bungalow: 0,
   flat: 1000,

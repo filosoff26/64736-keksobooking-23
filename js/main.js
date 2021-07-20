@@ -1,40 +1,13 @@
-import {
-  loadMap,
-  setMapState,
-  addMainPin,
-  setMainPinLocation,
-  clearPins,
-  addPins
-} from './map.js';
-
-import {
-  deactivateForm,
-  activateForm,
-  resetForm,
-  setFormLatLng,
-  addFormSubmitHandlers,
-  addformResetHandler
-} from './form.js';
-
-import {
-  deactivateFilters,
-  activateFilters,
-  resetFilters
-} from './filter.js';
-
-import {
-  getData
-} from './api.js';
-
-import {
-  showAlert,
-  showModal
-} from './dialog.js';
+import {loadMap, setMapState, addMainPin, setMainPinLocation, clearPins, addPins} from './map.js';
+import {deactivateForm, activateForm, resetForm, setFormLatLng, addFormSubmitHandlers, addformResetHandler} from './form.js';
+import {deactivateFilters, activateFilters, resetFilters} from './filter.js';
+import {getData} from './api.js';
+import {showAlert, showModal} from './dialog.js';
 
 const INITIAL_LOCATION = [35.675, 139.75];
 const INITIAL_ZOOM = 13;
 
-function moveMainPinHandler (evt) {
+function moveMainPinHandler(evt) {
   setFormLatLng(evt.target.getLatLng());
 }
 
@@ -62,6 +35,7 @@ function filterHandler(data) {
 
 deactivateForm();
 deactivateFilters();
+
 loadMap(INITIAL_LOCATION, INITIAL_ZOOM, () => {
   addMainPin(INITIAL_LOCATION, moveMainPinHandler);
   setFormLatLng(INITIAL_LOCATION);
