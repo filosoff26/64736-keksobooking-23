@@ -1,6 +1,6 @@
 const CARD_DATA_URL = 'https://23.javascript.pages.academy/keksobooking/data';
 
-function getData(successHandler, errorHandler) {
+const getData = (successHandler, errorHandler) => {
   fetch(CARD_DATA_URL)
     .then((response) => {
       if (response.ok) {
@@ -11,7 +11,7 @@ function getData(successHandler, errorHandler) {
     })
     .then((data) => successHandler(data))
     .catch(() => errorHandler());
-}
+};
 
 const sendData = (url, data, successHandler, errorHandler) => {
   fetch(

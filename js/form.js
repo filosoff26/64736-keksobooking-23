@@ -25,15 +25,6 @@ const roomNumberSelect = adForm.querySelector('#room_number');
 const capacitySelect = adForm.querySelector('#capacity');
 const addressInput = adForm.querySelector('#address');
 
-function roomNumberChangeHandler() {
-  for (const option of capacitySelect.options) {
-    const allowedCapacities = CAPACITY_BY_ROOM_NUMBER[roomNumberSelect.value];
-    option.disabled = !allowedCapacities.includes(option.value);
-  }
-  const firstEnabledOption = capacitySelect.querySelector(':not([disabled])');
-  capacitySelect.value = firstEnabledOption.value;
-}
-
 function deactivateForm() {
   adForm.classList.add('ad-form--disabled');
   adForm.querySelectorAll('fieldset').forEach((element) => {
@@ -46,11 +37,12 @@ function activateForm() {
   adForm.querySelectorAll('fieldset').forEach((element) => {
     element.disabled = false;
   });
-  roomNumberChangeHandler();
 }
 
 function resetForm() {
   adForm.reset();
+  typeSelect.dispatchEvent(new Event('change'));
+  roomNumberSelect.dispatchEvent(new Event('change'));
 }
 
 function setFormLatLng(data) {
@@ -69,7 +61,7 @@ function addFormSubmitHandlers(successHandler, errorHandler) {
   });
 }
 
-function addformResetHandler(formResetHandler) {
+function addFormResetHandler(formResetHandler) {
   adForm.addEventListener('reset', formResetHandler);
 }
 
@@ -83,7 +75,13 @@ timeInSelect.addEventListener('change', () => {
 timeOutSelect.addEventListener('change', () => {
   timeInSelect.value = timeOutSelect.value;
 });
-roomNumberSelect.addEventListener('change', roomNumberChangeHandler);
-adForm.addEventListener('reset', roomNumberChangeHandler);
+roomNumberSelect.addEventListener('change', () => {
+  for (const option of capacitySelect.options) {
+    const allowedCapacities = CAPACITY_BY_ROOM_NUMBER[roomNumberSelect.value];
+    option.disabled = !allowedCapacities.includes(option.value);
+  }
+  const firstEnabledOption = capacitySelect.querySelector(':not([disabled])');
+  capacitySelect.value = firstEnabledOption.value;
+});
 
-export {deactivateForm, activateForm, resetForm, setFormLatLng, addFormSubmitHandlers, addformResetHandler};
+export {deactivateForm, activateForm, resetForm, setFormLatLng, addFormSubmitHandlers, addFormResetHandler};
