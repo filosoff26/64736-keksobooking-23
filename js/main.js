@@ -1,5 +1,5 @@
 import {loadMap, setMapState, addMainPin, setMainPinLocation, clearPins, addPins} from './map.js';
-import {deactivateForm, activateForm, resetForm, setFormLatLng, addFormSubmitHandlers, addformResetHandler} from './form.js';
+import {deactivateForm, activateForm, resetForm, setFormLatLng, addFormSubmitHandlers, addFormResetHandler} from './form.js';
 import {deactivateFilters, activateFilters, resetFilters} from './filter.js';
 import {getData} from './api.js';
 import {showAlert, showModal} from './dialog.js';
@@ -42,7 +42,7 @@ loadMap(INITIAL_LOCATION, INITIAL_ZOOM, () => {
   activateForm();
 
   addFormSubmitHandlers(formSubmitHandler, formErrorHandler);
-  addformResetHandler(formResetHandler);
+  addFormResetHandler(formResetHandler);
 
   getData((realAds) => {
     filterHandler(realAds);

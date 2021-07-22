@@ -45,10 +45,7 @@ function filterPrice(value) {
 }
 
 function filterSelect(select, value) {
-  if (select.value === 'any') {
-    return true;
-  }
-  return Number(select.value) === Number(value);
+  return select.value === 'any' || Number(select.value) === Number(value);
 }
 
 function getFeatureWeight(features) {

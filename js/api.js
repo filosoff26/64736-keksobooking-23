@@ -13,7 +13,7 @@ function getData(successHandler, errorHandler) {
     .catch(() => errorHandler());
 }
 
-const sendData = (url, data, successHandler, errorHandler) => {
+function sendData(url, data, successHandler, errorHandler) {
   fetch(
     url,
     {
@@ -29,6 +29,6 @@ const sendData = (url, data, successHandler, errorHandler) => {
       }
     })
     .catch(() => errorHandler());
-};
+}
 
 export {getData, sendData};
