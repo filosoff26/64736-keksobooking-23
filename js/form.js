@@ -1,4 +1,5 @@
 import {sendData} from './api.js';
+import {enableImagePreview} from './image-preview.js';
 
 const COORDINATES_PRECISION = 5;
 
@@ -24,6 +25,19 @@ const timeOutSelect = adForm.querySelector('#timeout');
 const roomNumberSelect = adForm.querySelector('#room_number');
 const capacitySelect = adForm.querySelector('#capacity');
 const addressInput = adForm.querySelector('#address');
+const avatarInput = adForm.querySelector('#avatar');
+const avatarPreview = adForm.querySelector('.ad-form-header__preview img');
+const offerImageInput = adForm.querySelector('#images');
+
+const offerImagePreview = document.createElement('img');
+offerImagePreview.src = '';
+offerImagePreview.classList.add('hidden');
+offerImagePreview.style.width = '100%';
+offerImagePreview.style.height = '100%';
+adForm.querySelector('.ad-form__photo').appendChild(offerImagePreview);
+
+enableImagePreview(avatarInput, avatarPreview);
+enableImagePreview(offerImageInput, offerImagePreview);
 
 function deactivateForm() {
   adForm.classList.add('ad-form--disabled');
