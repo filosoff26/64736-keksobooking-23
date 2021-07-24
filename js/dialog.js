@@ -4,26 +4,16 @@ const showModal = (name) => {
   const modalFragment = document.querySelector(`#${name}`).content;
   const modal = modalFragment.querySelector(`.${name}`).cloneNode(true);
 
-  let closeErrorPopup = () => {};
-
-  const clickHandler = () => {
-    closeErrorPopup();
-  };
-
-  const keydownHandler = (evt) => {
-    if (evt.keyCode === KEYCODE_ESC) {
-      closeErrorPopup();
+  const inputHandler = (evt) => {
+    if (evt.type === 'click' || (evt.type === 'keydown' && evt.keyCode === KEYCODE_ESC)) {
+      modal.remove();
+      modal.removeEventListener('click', inputHandler);
+      document.removeEventListener('keydown', inputHandler);
     }
   };
 
-  closeErrorPopup = () => {
-    modal.remove();
-    modal.removeEventListener('click', clickHandler);
-    document.removeEventListener('keydown', keydownHandler);
-  };
-
-  modal.addEventListener('click', clickHandler);
-  document.addEventListener('keydown', keydownHandler);
+  modal.addEventListener('click', inputHandler);
+  document.addEventListener('keydown', inputHandler);
   document.body.appendChild(modal);
 };
 
