@@ -10,7 +10,7 @@ const OFFER_TYPE_TRANSLATIONS = {
 
 const cardTemplate = document.querySelector('#card').content;
 
-function addElementContent(parent, selector, content) {
+const addElementContent = (parent, selector, content) => {
   const element = parent.querySelector(selector);
 
   if (content === '') {
@@ -22,18 +22,18 @@ function addElementContent(parent, selector, content) {
   } else {
     element.textContent = content;
   }
-}
+};
 
-function addFeatures(featuresBlock, features) {
+const addFeatures = (featuresBlock, features) => {
   if (getClass(features) !== 'Array') {
     return;
   }
   features.forEach((feature) => {
     featuresBlock.querySelector(`.popup__feature--${feature}`).classList.remove('hidden');
   });
-}
+};
 
-function addOfferPhotos(photosBlock, photos) {
+const addOfferPhotos = (photosBlock, photos) => {
   if (photos === undefined || photos.length === 0) {
     photosBlock.classList.add('hidden');
     return;
@@ -45,9 +45,9 @@ function addOfferPhotos(photosBlock, photos) {
     newPhoto.src = photoSrc;
     photosBlock.appendChild(newPhoto);
   });
-}
+};
 
-function createOfferCard(ad) {
+const createOfferCard = (ad) => {
   const card = cardTemplate.cloneNode(true);
 
   addElementContent(card, '.popup__title', ad.offer.title);
@@ -63,6 +63,6 @@ function createOfferCard(ad) {
   addOfferPhotos(card.querySelector('.popup__photos'), ad.offer.photos);
 
   return card;
-}
+};
 
 export {createOfferCard};

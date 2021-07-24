@@ -17,7 +17,7 @@ let map;
 let mainPinMarker;
 let pinsLayer;
 
-function loadMap(location, zoom, mapLoadHandler) {
+const loadMap = (location, zoom, mapLoadHandler) => {
   map = L.map('map-canvas');
   map.on('load', mapLoadHandler);
   map.setView(location, zoom);
@@ -29,13 +29,13 @@ function loadMap(location, zoom, mapLoadHandler) {
     .addTo(map);
   pinsLayer = L.layerGroup();
   pinsLayer.addTo(map);
-}
+};
 
-function setMapState(location, zoom, afterChangeHandler) {
+const setMapState = (location, zoom, afterChangeHandler) => {
   map.on('moveend', afterChangeHandler).flyTo(location, zoom);
-}
+};
 
-function addMainPin(location, moveMainPinHandler) {
+const addMainPin = (location, moveMainPinHandler) => {
   mainPinMarker = L.marker(
     location,
     {
@@ -45,17 +45,17 @@ function addMainPin(location, moveMainPinHandler) {
   );
 
   mainPinMarker.addTo(map).on('moveend', moveMainPinHandler);
-}
+};
 
-function setMainPinLocation(location) {
+const setMainPinLocation = (location) => {
   mainPinMarker.setLatLng(location);
-}
+};
 
-function clearPins() {
+const clearPins = () => {
   pinsLayer.clearLayers();
-}
+};
 
-function addPins(data) {
+const addPins = (data) => {
   for (let i = 0; i < data.length && i < MAX_VISIBLE_POINTS; i++) {
     const marker = L.marker(
       data[i].location,
@@ -65,6 +65,6 @@ function addPins(data) {
     );
     marker.addTo(pinsLayer).bindPopup(() => createOfferCard(data[i]));
   }
-}
+};
 
 export {loadMap, setMapState, addMainPin, setMainPinLocation, clearPins, addPins};

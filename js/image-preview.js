@@ -1,6 +1,6 @@
 const ALLOWED_FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
-function enableImagePreview(input, img) {
+const enableImagePreview = (input, img) => {
   const hiddenImage = img.classList.contains('hidden');
   const defaultSrc = img.src;
 
@@ -28,6 +28,6 @@ function enableImagePreview(input, img) {
       img.classList.add('hidden');
     }
   });
-}
+};
 
 export {enableImagePreview};

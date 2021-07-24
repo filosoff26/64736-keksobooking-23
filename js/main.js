@@ -7,31 +7,31 @@ import {showAlert, showModal} from './dialog.js';
 const INITIAL_LOCATION = [35.675, 139.75];
 const INITIAL_ZOOM = 13;
 
-function moveMainPinHandler(evt) {
+const moveMainPinHandler = (evt) => {
   setFormLatLng(evt.target.getLatLng());
-}
+};
 
-function formResetHandler() {
+const formResetHandler = () => {
   setMapState(INITIAL_LOCATION, INITIAL_ZOOM, () => {
     setMainPinLocation(INITIAL_LOCATION);
     setFormLatLng(INITIAL_LOCATION);
   });
-}
+};
 
-function formSubmitHandler() {
+const formSubmitHandler = () => {
   showModal('success');
   resetForm();
   resetFilters();
-}
+};
 
-function formErrorHandler() {
+const formErrorHandler = () => {
   showModal('error');
-}
+};
 
-function filterHandler(data) {
+const filterHandler = (data) => {
   clearPins();
   addPins(data);
-}
+};
 
 deactivateForm();
 deactivateFilters();

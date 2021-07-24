@@ -39,32 +39,32 @@ adForm.querySelector('.ad-form__photo').appendChild(offerImagePreview);
 enableImagePreview(avatarInput, avatarPreview);
 enableImagePreview(offerImageInput, offerImagePreview);
 
-function deactivateForm() {
+const deactivateForm = () => {
   adForm.classList.add('ad-form--disabled');
   adForm.querySelectorAll('fieldset').forEach((element) => {
     element.disabled = true;
   });
-}
+};
 
-function activateForm() {
+const activateForm = () => {
   adForm.classList.remove('ad-form--disabled');
   adForm.querySelectorAll('fieldset').forEach((element) => {
     element.disabled = false;
   });
-}
+};
 
-function resetForm() {
+const resetForm = () => {
   adForm.reset();
   typeSelect.dispatchEvent(new Event('change'));
   roomNumberSelect.dispatchEvent(new Event('change'));
-}
+};
 
-function setFormLatLng(data) {
+const setFormLatLng = (data) => {
   const {lat, lng} = L.latLng(data);
   addressInput.value = `${lat.toFixed(COORDINATES_PRECISION)}, ${lng.toFixed(COORDINATES_PRECISION)}`;
-}
+};
 
-function addFormSubmitHandlers(successHandler, errorHandler) {
+const addFormSubmitHandlers = (successHandler, errorHandler) => {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
     sendData(
@@ -73,11 +73,11 @@ function addFormSubmitHandlers(successHandler, errorHandler) {
       successHandler,
       errorHandler);
   });
-}
+};
 
-function addFormResetHandler(formResetHandler) {
+const addFormResetHandler = (formResetHandler) => {
   adForm.addEventListener('reset', formResetHandler);
-}
+};
 
 typeSelect.addEventListener('change', () => {
   priceInput.min = MINIMAL_PRICES_BY_TYPE[typeSelect.value];

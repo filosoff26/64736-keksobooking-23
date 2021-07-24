@@ -1,31 +1,33 @@
 const KEYCODE_ESC = 27;
 
-function showModal(name) {
+const showModal = (name) => {
   const modalFragment = document.querySelector(`#${name}`).content;
   const modal = modalFragment.querySelector(`.${name}`).cloneNode(true);
 
-  function clickHandler() {
-    closeErrorPopup();
-  }
+  let closeErrorPopup = () => {};
 
-  function keydownHandler(evt) {
+  const clickHandler = () => {
+    closeErrorPopup();
+  };
+
+  const keydownHandler = (evt) => {
     if (evt.keyCode === KEYCODE_ESC) {
       closeErrorPopup();
     }
-  }
+  };
 
-  function closeErrorPopup() {
+  closeErrorPopup = () => {
     modal.remove();
     modal.removeEventListener('click', clickHandler);
     document.removeEventListener('keydown', keydownHandler);
-  }
+  };
 
   modal.addEventListener('click', clickHandler);
   document.addEventListener('keydown', keydownHandler);
   document.body.appendChild(modal);
-}
+};
 
-function showAlert(parent, message, timeInSecs) {
+const showAlert = (parent, message, timeInSecs) => {
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = 9999;
   alertContainer.style.position = 'absolute';
@@ -48,6 +50,6 @@ function showAlert(parent, message, timeInSecs) {
   setTimeout(() => {
     alertContainer.remove();
   }, timeInSecs * 1000);
-}
+};
 
 export {showModal, showAlert};
